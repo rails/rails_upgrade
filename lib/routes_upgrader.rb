@@ -299,8 +299,10 @@ module Rails
         method_code = []
         
         RouteRedrawer.stack << self
-        @options[group].each do |k, v|
-          method_code << "#{v} :#{k}"
+        @options[group].each do |name, methods|
+          [*methods].each do |method|
+            method_code << "#{method} :#{name}"
+          end
         end
         RouteRedrawer.stack.pop
         
