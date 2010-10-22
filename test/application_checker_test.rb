@@ -2,7 +2,7 @@ require 'test_helper'
 require 'application_checker'
 require 'fileutils'
 
-tmp_dir = "#{File.dirname(__FILE__)}/fixtures/tmp"
+tmp_dir = File.expand_path("#{File.dirname(__FILE__)}/fixtures/tmp")
 
 if defined? BASE_ROOT
   BASE_ROOT.replace tmp_dir
