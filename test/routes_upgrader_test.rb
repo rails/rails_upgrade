@@ -74,6 +74,14 @@ end
     assert_equal "namespace :static do\nmatch '/about' => 'static#about'\nend\n", ns.to_route_code
   end
   
+  def test_generates_code_for_namespace_with_options
+    ns = Rails::Upgrading::FakeNamespace.new("static", { :path_prefix => 'prefix' })
+    # Add a route to the namespace
+    ns << Rails::Upgrading::FakeRoute.new("/about", {:controller => 'static', :action => 'about'})
+    
+    assert_equal "namespace :static, :path_prefix => 'prefix' do\nmatch '/about' => 'static#about'\nend\n", ns.to_route_code
+  end
+  
   def test_generates_code_for_resources
     route = Rails::Upgrading::FakeResourceRoute.new("hats")
     assert_equal "resources :hats", route.to_route_code

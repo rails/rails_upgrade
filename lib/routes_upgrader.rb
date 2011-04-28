@@ -139,9 +139,9 @@ module Rails
         end
       end
       
-      def namespace(name)
+      def namespace(name, options = {})
         debug "mapping namespace #{name}"
-        namespace = FakeNamespace.new(name)
+        namespace = FakeNamespace.new(name, options)
         
         namespace = stack(namespace) do
           yield(self)
@@ -200,16 +200,22 @@ module Rails
     end
     
     class FakeNamespace < RouteObject
-      attr_accessor :routes, :name
+      attr_accessor :routes, :name, :options
       
-      def initialize(name)
+      def initialize(name, options = {})
         @routes = []
-        @name = name
+        @name, @options = name, options
         @indent = RouteRedrawer.indent
       end
       
       def to_route_code
-        lines = ["namespace :#{@name} do", @routes.map {|r| r.to_route_code}, "end"]
+        if !@options.empty?
+          options = ', ' + opts_to_string(@options)
+        else
+          options = ''
+        end
+
+        lines = ["namespace :#{@name}#{options} do", @routes.map {|r| r.to_route_code}, "end"]
         
         indent_lines(lines)
       end
