@@ -92,6 +92,22 @@ end
     assert_equal "resource :hat", route.to_route_code
   end
   
+  def test_generates_code_for_resources_with_block_and_options
+    routes_code = <<-ROUTES
+      ActionController::Routing::Routes.draw do |map|
+        map.resources :people, :collection => {:search => :get} do |p|
+          p.resource :vuvuzela
+        end
+      end
+    ROUTES
+
+    upgrader = Rails::Upgrading::RoutesUpgrader.new
+    upgrader.routes_code = routes_code
+    result = upgrader.generate_new_routes
+
+    assert_equal "MyApplication::Application.routes.draw do\n  resources :people do\n    collection do\n  get :search\n  end\n  \n      resource :vuvuzela\n  end\n\nend\n", result
+  end
+
   def test_generates_code_for_resources_with_special_methods
     route = Rails::Upgrading::FakeResourceRoute.new("hats", {:member => {:wear => :get}, :collection => {:toss => :post}})
     assert_equal "resources :hats do\ncollection do\npost :toss\nend\nmember do\nget :wear\nend\n\nend\n", route.to_route_code
