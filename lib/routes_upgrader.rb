@@ -174,7 +174,7 @@ module Rails
       
       def value_to_string(value)
         case value
-        when Regexp then value.inspect
+        when Regexp, Symbol, Array then value.inspect
         when String then "'" + value.to_s + "'"
         else value.to_s
         end
@@ -238,10 +238,6 @@ module Rails
           
           if @options[:conditions]
             @options[:via] = @options.delete(:conditions).delete(:method)
-          end
-
-          if @options[:method]
-            @options[:via] = @options.delete(:method).to_s
           end
 
           @options ||= {}
