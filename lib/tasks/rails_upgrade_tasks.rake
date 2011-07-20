@@ -39,9 +39,9 @@ namespace :rails do
       puts new_config
     end
 
-    CLEAR      = "\e[0m"
-    CYAN       = "\e[36m"
-    WHITE      = "\e[37m"
+    CLEAR      = "\e[0m"  unless defined? CLEAR
+    CYAN       = "\e[36m" unless defined? CYAN
+    WHITE      = "\e[37m" unless defined? WHITE
 
     desc "Backs up your likely modified files so you can run the Rails 3 generator on your app with little risk"
     task :backup do
