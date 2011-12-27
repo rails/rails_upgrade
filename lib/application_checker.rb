@@ -293,7 +293,7 @@ module Rails
           alert(
             "Deprecated AJAX helper calls",
             "AJAX javascript helpers have been switched to be unobtrusive and use :remote => true instead of having a seperate function to handle remote requests.",
-            "http://www.themodestrubyist.com/2010/02/24/rails-3-ujs-and-csrf-meta-tags/",
+            "http://blog.jordanwest.me/modest-rubyist-archive/rails-3-ujs-and-csrf-meta-tags",
             files
           )
         end
