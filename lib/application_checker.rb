@@ -50,15 +50,15 @@ module Rails
           )
         end
       end
-      
+
       def check_validation_on_methods
         files = []
-        
+
         ["validate_on_create", "validate_on_update"].each do |v|
           lines = grep_for(v, "app/models/")
           files += extract_filenames(lines) || []
         end
-        
+
         unless files.empty?
           alert(
             "Updated syntax for validate_on_* methods",
@@ -68,15 +68,15 @@ module Rails
           )
         end
       end
-      
+
       def check_before_validation_on_methods
         files = []
-        
+
         %w(before_validation_on_create before_validation_on_update).each do |v|
           lines = grep_for(v, "app/models/")
           files += extract_filenames(lines) || []
         end
-        
+
         unless files.empty?
           alert(
             "Updated syntax for before_validation_on_* methods",
@@ -223,7 +223,7 @@ module Rails
 
         unless generators.empty?
           files = generators.reject do |g|
-                    grep_for("def manifest", g).empty? 
+                    grep_for("def manifest", g).empty?
                   end.compact
 
           unless files.empty?
@@ -267,7 +267,7 @@ module Rails
         lines += grep_for("<% .*form_tag.* do.*%>", "app/views/**/*")
         lines += grep_for("<% .*fields_for.* do.*%>", "app/views/**/*")
         lines += grep_for("<% .*field_set_tag.* do.*%>", "app/views/**/*")
-        
+
         files = extract_filenames(lines)
 
         if !files.blank?
@@ -343,6 +343,21 @@ module Rails
         end
       end
 
+      #Check for old ActionMailer :send_on attributes
+      def check_old_action_mailer_send_on_setting
+        files = []
+        lines = grep_for("@sent_on", "app/*")
+        files += extract_filenames(lines) || []
+
+        unless files.empty?
+          alert(
+            "Deprecated ActionMailer attribute :send_on",
+            "This is deprecated without replace.",
+            "http://stackoverflow.com/questions/7367185/weird-error-when-delivering-mail-undefined-method-index-for-2011-09-09-2215",
+            files
+          )
+        end
+      end
     private
       def grep_for_with_perl_regex(text, where = "./", double_quote = false)
         grep_for(text, where, double_quote, true)
@@ -355,7 +370,7 @@ module Rails
       def grep_for(text, where = "./", double_quote = false, perl_regex = false)
         # If they're on Windows, they probably don't have grep.
         @probably_has_grep ||= (Config::CONFIG['host_os'].downcase =~ /mswin|windows|mingw/).nil?
-        
+
         # protect against double root paths in Rails 3
         where.gsub!(Regexp.new(base_path),'')
 
