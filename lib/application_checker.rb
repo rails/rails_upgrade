@@ -343,16 +343,16 @@ module Rails
         end
       end
 
-      #Check for old ActionMailer :send_on attributes
-      def check_old_action_mailer_send_on_setting
+      #Check for old ActionMailer :sent_on attributes
+      def check_old_action_mailer_sent_on_setting
         files = []
-        lines = grep_for("@sent_on", "app/*")
+        lines = grep_for("sent_on", "app/*")
         files += extract_filenames(lines) || []
 
         unless files.empty?
           alert(
-            "Deprecated ActionMailer attribute :send_on",
-            "This is deprecated without replace.",
+            "Deprecated ActionMailer attribute :sent_on",
+            "Using the new mailer API, you can specify :date to the mail method.",
             "http://stackoverflow.com/questions/7367185/weird-error-when-delivering-mail-undefined-method-index-for-2011-09-09-2215",
             files
           )

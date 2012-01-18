@@ -311,6 +311,13 @@ class ApplicationCheckerTest < ActiveSupport::TestCase
     assert ! @checker.alerts.has_key?("Deprecated AJAX helper calls")
   end
 
+  def test_check_old_action_mailer_sent_on_setting
+    make_file("app/models", "mailer.rb", "sent_on Time.now")
+    @checker.check_old_action_mailer_sent_on_setting
+
+    assert @checker.alerts.has_key?("Deprecated ActionMailer attribute :sent_on")
+  end
+
   def teardown
     clear_files
 
