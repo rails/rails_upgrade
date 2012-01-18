@@ -251,7 +251,7 @@ module Rails
         unless bad_plugins.empty?
           alert(
             "Known broken plugins",
-            "At least one plugin in your app is broken (according to the wiki).  Most of project maintainers are rapidly working towards compatability, but do be aware you may encounter issues.",
+            "At least one plugin in your app is broken (according to the wiki).  Most of project maintainers are rapidly working towards compatibility, but do be aware you may encounter issues.",
             "http://wiki.rubyonrails.org/rails/version3/plugins_and_gems",
             bad_plugins
           )
