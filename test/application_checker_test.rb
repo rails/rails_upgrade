@@ -304,6 +304,13 @@ class ApplicationCheckerTest < ActiveSupport::TestCase
 
     assert @checker.alerts.has_key?("Deprecated AJAX helper calls")
   end
+  
+  def test_check_old_ajax_helpers
+    make_file("app/controllers", "application_controller.rb", "filter_parameter_logging :password")
+    @checker.check_old_filter_parameter
+
+    assert @checker.alerts.has_key?("Deprecated filter_parameter_logging calls")
+  end
 
   def test_check_old_ajax_helpers_empty
     @checker.check_old_ajax_helpers
