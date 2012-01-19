@@ -358,6 +358,20 @@ module Rails
           )
         end
       end
+      def check_old_filter_parameter
+        files = []
+        lines = grep_for("filter_parameter_logging", "app/controllers/*")
+        files += extract_filenames(lines) || []
+
+        unless files.empty?
+          alert(
+            "Deprecated filter_parameter_logging calls",
+            "The list of filtered parameters are now stored in /config/application.rb. For example: config.filter_parameters += [:password]",
+            "http://de.asciicasts.com/episodes/224-controller-in-rails-3",
+            files
+          )
+        end
+      end
     private
       def grep_for_with_perl_regex(text, where = "./", double_quote = false)
         grep_for(text, where, double_quote, true)
