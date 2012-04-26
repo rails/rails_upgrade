@@ -11,7 +11,7 @@ namespace :rails do
   namespace :upgrade do
     desc "Runs a battery of checks on your Rails 2.x app and generates a report on required upgrades for Rails 3"
     task :check do
-      checker = Rails::Upgrading::ApplicationChecker.new
+      checker = Rails::Upgrading::ApplicationChecker.new(ENV['BASE_PATH'])
       checker.run
     end
 
