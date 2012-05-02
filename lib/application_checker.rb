@@ -367,7 +367,7 @@ module Rails
           alert(
             "Deprecated filter_parameter_logging calls",
             "The list of filtered parameters are now stored in /config/application.rb. For example: config.filter_parameters += [:password]",
-            "http://de.asciicasts.com/episodes/224-controller-in-rails-3",
+            "http://asciicasts.com/episodes/224-controllers-in-rails-3",
             files
           )
         end
