@@ -9,8 +9,8 @@ module Rails
           @relative_base_path = '/'
         else
           @relative_base_path = relative_base_path
-          @relative_base_path += '/' if @relative_base_path.last != '/'
-          @relative_base_path = '/' + @relative_base_path if @relative_base_path.first != '/'
+          @relative_base_path += '/' if @relative_base_path.end_with? '/'
+          @relative_base_path = '/' + @relative_base_path if @relative_base_path.start_with? '/'
         end
 
         raise NotInRailsAppError unless in_rails_app?
