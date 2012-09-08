@@ -283,7 +283,7 @@ module Rails
       # Checks for old-style AJAX helpers
       def check_old_ajax_helpers
         files = []
-        ['link_to_remote','form_remote_tag','remote_form_for'].each do |type|
+        ['link_to_remote','form_remote_tag','remote_form_for', 'form_remote_for'].each do |type|
           lines = grep_for(type, "app/views/**/*")
           inner_files = extract_filenames(lines)
           files += inner_files unless inner_files.nil?
