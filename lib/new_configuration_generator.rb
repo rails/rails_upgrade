@@ -36,7 +36,7 @@ require 'rails/all'
 
 Bundler.require(:default, Rails.env) if defined?(Bundler)
 
-module #{app_name.classify}
+module #{app_name.gsub(/\W/, '_').squeeze('_').camelize}
   class Application < Rails::Application
     config.autoload_paths += [config.root.join('lib')]
     config.encoding = 'utf-8'
