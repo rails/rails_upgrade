@@ -332,7 +332,7 @@ module Rails
           r.to_route_code
         end.join("\n")
         
-        "#{app_name.underscore.classify}::Application.routes.draw do\n#{@new_code}\nend\n"
+        "#{app_name.gsub(/\W/, '_').squeeze('_').camelize}::Application.routes.draw do\n#{@new_code}\nend\n"
       end
       
     private
