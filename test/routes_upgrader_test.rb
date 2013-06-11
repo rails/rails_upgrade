@@ -215,4 +215,28 @@ end
     upgrader.routes_code = routes_code
     assert_equal new_routes_code.strip, upgrader.generate_new_routes.strip
   end
+
+  def test_generates_code_for_resources_with_has_many_option
+    routes_code = %Q{
+ActionController::Routing::Routes.draw do |map|
+  map.resources :ducks, :has_many => [:geese]
+end
+    }
+
+    new_routes_code = %Q{
+MyApplication::Application.routes.draw do
+  resources :ducks do
+  
+  
+    resources :geese
+  end
+
+end
+    }
+
+    upgrader = Rails::Upgrading::RoutesUpgrader.new
+    upgrader.routes_code = routes_code
+
+    assert_equal new_routes_code.strip, upgrader.generate_new_routes.strip
+  end
 end

@@ -268,6 +268,8 @@ module Rails
         unless copied_options.empty?
           copied_options_str = ", " + copied_options.map { |k, v| "#{k.inspect} => #{v.inspect}" }.join(",")
         end
+
+        add_has_many_to_children
         
         if !@children.empty? || @options.has_key?(:collection) || @options.has_key?(:member)
           prefix = ["#{route_method} :#{@name}#{copied_options_str} do"]
@@ -277,6 +279,16 @@ module Rails
         else
           base = "#{route_method} :%s#{copied_options_str}"
           indent_lines [base % [@name]]
+        end
+      end
+
+      def add_has_many_to_children
+        if @options[:has_many].is_a?(Symbol)
+          @children << FakeResourceRoute.new(@options[:has_many])
+        elsif @options[:has_many].is_a?(Array)
+          @options[:has_many].each do |resource|
+            @children << FakeResourceRoute.new(resource)
+          end
         end
       end
       
