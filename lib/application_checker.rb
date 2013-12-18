@@ -132,7 +132,7 @@ module Rails
           alert(
             "New file needed: config/application.rb",
             "You need to add a config/application.rb.",
-            "http://omgbloglol.com/post/353978923/the-path-to-rails-3-approaching-the-upgrade",
+            "http://web.archive.org/web/20120817051524/http://omgbloglol.com/post/353978923/the-path-to-rails-3-approaching-the-upgrade",
             "config/application.rb"
           )
         end
@@ -143,7 +143,7 @@ module Rails
           alert(
             "Old environment.rb",
             "environment.rb doesn't do what it used to; you'll need to move some of that into application.rb.",
-            "http://omgbloglol.com/post/353978923/the-path-to-rails-3-approaching-the-upgrade",
+            "http://web.archive.org/web/20120817051524/http://omgbloglol.com/post/353978923/the-path-to-rails-3-approaching-the-upgrade",
             "config/environment.rb"
           )
         end
@@ -180,7 +180,7 @@ module Rails
           alert(
             "Old gem bundling (config.gems)",
             "The old way of bundling is gone now.  You need a Gemfile for bundler.",
-            "http://omgbloglol.com/post/353978923/the-path-to-rails-3-approaching-the-upgrade",
+            "http://web.archive.org/web/20120817051524/http://omgbloglol.com/post/353978923/the-path-to-rails-3-approaching-the-upgrade",
             files
           )
         end
