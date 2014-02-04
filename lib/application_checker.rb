@@ -3,8 +3,15 @@ require 'open3'
 module Rails
   module Upgrading
     class ApplicationChecker
-      def initialize
+      def initialize(relative_base_path = nil)
         @issues = []
+        if relative_base_path.blank?
+          @relative_base_path = '/'
+        else
+          @relative_base_path = relative_base_path
+          @relative_base_path += '/' if @relative_base_path.end_with? '/'
+          @relative_base_path = '/' + @relative_base_path if @relative_base_path.start_with? '/'
+        end
 
         raise NotInRailsAppError unless in_rails_app?
       end
@@ -260,7 +267,6 @@ module Rails
 
       # Checks for old-style ERb helpers
       def check_old_helpers
-
         lines = grep_for("<% .*content_tag.* do.*%>", "app/views/**/*")
         lines += grep_for("<% .*javascript_tag.* do.*%>", "app/views/**/*")
         lines += grep_for("<% .*form_for.* do.*%>", "app/views/**/*")
@@ -400,7 +406,7 @@ module Rails
 
       # Sets a base path for finding files; mostly for testing
       def base_path
-        Dir.pwd + "/"
+        Dir.pwd + @relative_base_path # "/"
       end
 
       # Use the grep utility to find a string in a set of files
