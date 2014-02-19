@@ -164,7 +164,7 @@ module Rails
           alert(
             "Deprecated constant(s)",
             "Constants like RAILS_ENV, RAILS_ROOT, and RAILS_DEFAULT_LOGGER are now deprecated.",
-            "http://litanyagainstfear.com/blog/2010/02/03/the-rails-module/",
+            "http://quaran.to/blog/2010/02/03/the-rails-module/",
             files.uniq
           )
         end
