@@ -50,6 +50,42 @@ module Rails
           )
         end
       end
+      
+      def check_validation_on_methods
+        files = []
+        
+        ["validate_on_create", "validate_on_update"].each do |v|
+          lines = grep_for(v, "app/models/")
+          files += extract_filenames(lines) || []
+        end
+        
+        unless files.empty?
+          alert(
+            "Updated syntax for validate_on_* methods",
+            "Validate-on-callback methods (validate_on_create/validate_on_destroy) have been changed to validate :x, :on => :create",
+            "https://rails.lighthouseapp.com/projects/8994/tickets/3880-validate_on_create-and-validate_on_update-no-longer-seem-to-exist",
+            files
+          )
+        end
+      end
+      
+      def check_before_validation_on_methods
+        files = []
+        
+        %w(before_validation_on_create before_validation_on_update).each do |v|
+          lines = grep_for(v, "app/models/")
+          files += extract_filenames(lines) || []
+        end
+        
+        unless files.empty?
+          alert(
+            "Updated syntax for before_validation_on_* methods",
+            "before_validation_on_* methods have been changed to before_validation(:on => :create/:update) { ... }",
+            "https://rails.lighthouseapp.com/projects/8994/tickets/4699-before_validation_on_create-and-before_validation_on_update-doesnt-exist",
+            files
+          )
+        end
+      end
 
       def check_validation_on_methods
         files = []
