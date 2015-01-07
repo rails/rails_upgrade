@@ -1,6 +1,6 @@
 require 'rake'
 require 'rake/testtask'
-require 'rake/rdoctask'
+require 'rdoc/task'
 
 desc 'Default: run unit tests.'
 task :default => :test
@@ -13,7 +13,7 @@ Rake::TestTask.new do |t|
 end
 
 desc 'Generate documentation for the rails_upgrade plugin.'
-Rake::RDocTask.new(:rdoc) do |rdoc|
+RDoc::Task.new.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'Rails-upgrade'
   rdoc.options << '--line-numbers' << '--inline-source'
