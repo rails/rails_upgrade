@@ -13,7 +13,7 @@ Rake::TestTask.new do |t|
 end
 
 desc 'Generate documentation for the rails_upgrade plugin.'
-RDoc::Task.new.new(:rdoc) do |rdoc|
+RDoc::Task.new(:rdoc) do |rdoc|
   rdoc.rdoc_dir = 'rdoc'
   rdoc.title    = 'Rails-upgrade'
   rdoc.options << '--line-numbers' << '--inline-source'
